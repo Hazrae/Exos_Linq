@@ -214,11 +214,11 @@ namespace ExerciceDeLinq
 
                 //méthodes d'extension
 
-                var queryResult = dc.Students.Where(c => c.Section_ID.ToString().StartsWith("13") && c.Year_Result <= 6).Select(c => new
+                var queryResult = dc.Students.Where(c => c.Section_ID.ToString().StartsWith("13") && c.Year_Result*5 <= 60).Select(c => new
                 {
                     nom = c.Last_Name,
                     section = c.Section_ID,
-                    result_100 = c.Year_Result * 10
+                    result_100 = c.Year_Result * 5
                 }).OrderByDescending(c => c.result_100);
 
 
@@ -226,12 +226,12 @@ namespace ExerciceDeLinq
 
                 var queryResult2 = from c in dc.Students
                                    orderby c.Year_Result descending
-                                   where (c.Section_ID).ToString().StartsWith("13") && c.Year_Result <= 6
+                                   where (c.Section_ID).ToString().StartsWith("13") && c.Year_Result*5 <= 60
                                    select new
                                    {
                                        nom = c.Last_Name,
                                        section = c.Section_ID,
-                                       result_100 = c.Year_Result * 10
+                                       result_100 = c.Year_Result * 5
                                    };
                                    
                 // affichage collection faite avec méthodes d'extension
@@ -252,7 +252,67 @@ namespace ExerciceDeLinq
             }
             #endregion
 
+            #region 4.1
+            {
+                double avg = dc.Students.Average(c => (double)c.Year_Result);
+                Console.WriteLine(avg);
+            }
+            #endregion
 
+            #region 4.2
+            {
+                int max = dc.Students.Max(c => c.Year_Result);
+                Console.WriteLine(max);
+            }
+            #endregion
+
+            #region 4.3
+            {
+                int sum = dc.Students.Sum(c => c.Year_Result);
+                Console.WriteLine(sum);
+            }
+            #endregion
+
+            #region 4.4
+            {
+                int min = dc.Students.Min(c => c.Year_Result);
+                Console.WriteLine(min);
+            }
+            #endregion
+
+            #region 4.5
+            {
+                int count = dc.Students.Count(c => c.Year_Result % 2 == 1);
+                Console.WriteLine(count);
+            }
+            #endregion
+
+            #region 5.1
+            {
+                var resultQuery = dc.Students.GroupBy(s => s.Section_ID).Select(group => new
+                {
+                    ID = group.Key,
+                    max = group.Max(max => max.Year_Result)
+                });
+
+                foreach (var s in resultQuery)
+                {
+                    Console.WriteLine($"Dans la section {s.ID} le max : {s.max}");
+                }
+            }
+            #endregion
+
+            #region 5.2
+            {
+    
+            }
+            #endregion
+
+            #region 5.3
+            {
+               
+            }
+            #endregion
 
             #region Console.ReadLine()
             Console.ReadLine();
