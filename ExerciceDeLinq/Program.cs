@@ -175,6 +175,7 @@ namespace ExerciceDeLinq
                 foreach (var s in queryResult)
                 {
                     Console.WriteLine($"{s.nom} --- {s.result}");
+
                 }
             }
             #endregion
